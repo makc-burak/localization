@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>l10n.js demo</title>
+<style type="text/css">
+body {
+	font-size: xx-large;
+	text-align: center;
+}
+</style>
+<script type="text/javascript" src="json2.min.js"></script>
+<script type="text/javascript" src="l10n.min.js"></script>
+<script type="text/javascript" src="localizations.js"></script>
+</head>
+<body>
+
+<h1 id="title">English</h1>
+<p id="info">You are viewing an English localization of this page</p>
+
+<script type="text/javascript">
+
+var localize = function (string, fallback) {
+	var localized = string.toLocaleString();
+	if (localized !== string) {
+		return localized;
+	} else {
+		return fallback;
+	}
+};
+
+function changeLng(lng) {
+	String.locale=lng;
+
+	document.documentElement.lang = lng;
+
+	var info = document.getElementById("info").firstChild,
+			title = document.getElementById("title").firstChild;
+
+	info.nodeValue = localize("%info", info.nodeValue);
+	document.title = title.nodeValue = localize("%title", title.nodeValue);
+}
+
+</script>
+
+<div>
+	<p>
+		<button  onclick="changeLng('en')">en</button>
+		<button  onclick="changeLng('ru')">ru</button>
+	</p>
+	<p></p>
+</div>
+
+</body>
+</html>
